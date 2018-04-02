@@ -7,16 +7,21 @@
 <div class="row">
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Song URL" @bind(songUrl) />
+			<input type="text" class="form-control" placeholder="Song" @bind(songUrl) />
 			<span class="input-group-btn">
 				<button class="btn btn-default" @onclick(async () => await GetSongAsync(null))>Get</button>
 			</span>
 		</div>
+		<p class="help-block">Enter song URL or name, for example 
+			<a href="#" @onclick(() => songUrl = "https://vocadb.net/S/121")>https://vocadb.net/S/121</a>
+			or 
+			<a href="#" @onclick(() => songUrl = "Nebula")>Nebula</a>
+		</p>
 	</form>
 </div>
 
 @if (song != null) {
-	<h2>Lyrics for song @song.name by @song.artistString</h2>
+	<h2>Lyrics for song <a href="https://vocadb.net/S/@song.id">@song.name</a> by @song.artistString</h2>
 	@if (!song.lyrics.Any()) {
 		<div class="alert alert-warning">
 			No lyrics! Try another song.
@@ -77,12 +82,19 @@
 
 	async Task GetSongAsync(object action)
 	{
+
+		if (string.IsNullOrEmpty(songUrl)) {
+			song = null;
+			return;
+		}
+
 		var url = "https://vocadb.net/api/songs?maxResults=1&nameMatchMode=Auto&preferAccurateMatches=true&fields=Lyrics&query=" + songUrl;
-		//var response = await Http.GetAsync(url);
 		var result = await Http.GetJsonAsync<VocaDbContracts.PartialFindResult<VocaDbContracts.SongForApiContract>>(url);
 		this.song = result.items.FirstOrDefault();
 		if (song != null && song.lyrics.Any()) {
 			this.activeLyrics = song.lyrics.FirstOrDefault();
+		} else {
+			this.activeLyrics = null;
 		}
 		this.StateHasChanged();
 	}
