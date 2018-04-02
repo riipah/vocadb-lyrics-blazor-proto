@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27520.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocaloidLyrics", "VocaloidLyrics\VocaloidLyrics.csproj", "{DF281E0F-E03F-4BF7-A0EF-2846C3613A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VocaloidLyrics", "VocaloidLyrics\VocaloidLyrics.csproj", "{DF281E0F-E03F-4BF7-A0EF-2846C3613A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocaDbContracts", "VocaDbContracts\VocaDbContracts.csproj", "{1ACC675C-29EB-4397-869D-F2E03112AF0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VocaDbContracts", "VocaDbContracts\VocaDbContracts.csproj", "{1ACC675C-29EB-4397-869D-F2E03112AF0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C8DFAC4-04DA-40EA-A60A-EE66372C66B4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
