@@ -1,0 +1,63 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Blazor.Browser.Interop
+@inject HttpClient Http
+
+<h1>VocaDB lyrics display</h1>
+
+<input type="text" placeholder="Song URL" @bind(songUrl) />
+<button @onclick(async () => await GetSongAsync(null))>Get</button>
+
+@if (song != null) {
+	@if (!song.lyrics.Any()) {
+		<div class="alert alert-warning">
+			No lyrics! Try another song.
+		</div>
+	}
+	<ul class="nav nav-tabs">
+		@foreach (var lyrics in song.lyrics) {
+			<li class="nav-item">
+				<a class="@(lyrics == activeLyrics ? "nav-link active" :"nav-link")" href="#" @onclick(() => activeLyrics = lyrics)>@lyrics.cultureCode</a>
+			</li>
+		}
+	</ul>
+	@if (activeLyrics != null) {
+		<div style="white-space: pre-line;">
+		@:@activeLyrics.value
+		</div>
+	}
+}
+
+<script>
+    Blazor.registerFunction('log', (data) => {
+		console.log(data);
+        return true;
+    });
+</script>
+
+@functions {
+
+	VocaDbContracts.SongForApiContract song;
+	VocaDbContracts.LyricsForSongContract activeLyrics;
+	string songUrl = null;
+
+	private void Log(object val) {
+		RegisteredFunction.Invoke<bool>("log", song);
+	}
+
+	string GetLyricsTitle(VocaDbContracts.LyricsForSongContract lyrics) {
+		if (lyrics.)
+	}
+
+	async Task GetSongAsync(object action)
+	{
+		var url = "https://vocadb.net/api/songs?maxResults=1&nameMatchMode=Auto&preferAccurateMatches=true&fields=Lyrics&query=" + songUrl;
+		//var response = await Http.GetAsync(url);
+		var result = await Http.GetJsonAsync<VocaDbContracts.PartialFindResult<VocaDbContracts.SongForApiContract>>(url);
+		this.song = result.items.FirstOrDefault();
+		if (song != null && song.lyrics.Any()) {
+			this.activeLyrics = song.lyrics.FirstOrDefault();
+		}
+		this.StateHasChanged();
+	}
+
+}

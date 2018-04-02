@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "VocaloidLyrics": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:56401/"
+    }
+  }
+}
