@@ -6,6 +6,7 @@
 <div class="row">
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
+			<!-- Note: currently bind and onchange are not supported on the same element: https://github.com/aspnet/Blazor/issues/433#issue-309782114 -->
 			<input type="text" class="form-control" placeholder="Song" @bind(songUrl) />
 			<span class="input-group-btn">
 				<button class="btn btn-default" @onclick(async () => await GetSongAsync(songUrl))>Get</button>
