@@ -4,10 +4,19 @@
 
 <h1>VocaDB lyrics display</h1>
 
-<input type="text" placeholder="Song URL" @bind(songUrl) />
-<button @onclick(async () => await GetSongAsync(null))>Get</button>
+<div class="row">
+	<form class="form-horizontal col-sm-6">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Song URL" @bind(songUrl) />
+			<span class="input-group-btn">
+				<button class="btn btn-default" @onclick(async () => await GetSongAsync(null))>Get</button>
+			</span>
+		</div>
+	</form>
+</div>
 
 @if (song != null) {
+	<h2>Lyrics for song @song.name by @song.artistString</h2>
 	@if (!song.lyrics.Any()) {
 		<div class="alert alert-warning">
 			No lyrics! Try another song.
@@ -15,14 +24,16 @@
 	}
 	<ul class="nav nav-tabs">
 		@foreach (var lyrics in song.lyrics) {
-			<li class="nav-item">
-				<a class="@(lyrics == activeLyrics ? "nav-link active" :"nav-link")" href="#" @onclick(() => activeLyrics = lyrics)>@lyrics.cultureCode</a>
+			<li class="@(lyrics == activeLyrics ? "nav-item active" :"nav-item")">
+				<a class="nav-link" href="#" @onclick(() => activeLyrics = lyrics)>
+					@GetLyricsTitle(lyrics)
+				</a>
 			</li>
 		}
 	</ul>
 	@if (activeLyrics != null) {
 		<div style="white-space: pre-line;">
-		@:@activeLyrics.value
+			@activeLyrics.value
 		</div>
 	}
 }
@@ -45,7 +56,23 @@
 	}
 
 	string GetLyricsTitle(VocaDbContracts.LyricsForSongContract lyrics) {
-		if (lyrics.)
+		if (!string.IsNullOrEmpty(lyrics.cultureCode)) {
+			return new System.Globalization.CultureInfo(lyrics.cultureCode).EnglishName;
+		}
+
+		var translationType = (VocaDbContracts.TranslationType)Enum.Parse(typeof(VocaDbContracts.TranslationType), lyrics.translationType);
+
+		switch (translationType) {
+			case VocaDbContracts.TranslationType.Romanized:
+				return "Romanized";
+			case VocaDbContracts.TranslationType.Original:
+				return "Original";
+			case VocaDbContracts.TranslationType.Translation:
+				return "Translation";
+			default:
+				return "Unspecified";
+		}
+
 	}
 
 	async Task GetSongAsync(object action)
