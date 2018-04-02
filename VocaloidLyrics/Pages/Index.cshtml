@@ -7,10 +7,13 @@
 <div class="row">
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Song" @onchange(async val => await GetSongAsync(val as string)) />
+			<input type="text" class="form-control" placeholder="Song" @bind(songUrl) />
+			<span class="input-group-btn">
+				<button class="btn btn-default" @onclick(async () => await GetSongAsync(songUrl))>Get</button>
+			</span>
 		</div>
 		<p class="help-block">Enter song URL or name, for example 
-			<a href="#" @onclick(() => songUrl = "https://vocadb.net/S/121")>https://vocadb.net/S/121</a>
+			<a href="#" @onclick(() => songUrl = "https://youtu.be/hoLu7c2XZYU")>https://youtu.be/hoLu7c2XZYU</a>
 			or 
 			<a href="#" @onclick(() => songUrl = "Nebula")>Nebula</a>
 		</p>
