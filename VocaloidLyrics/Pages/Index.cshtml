@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Blazor.Browser.Interop
 @inject HttpClient Http
 
 <h1>VocaDB lyrics display</h1>
@@ -13,9 +12,9 @@
 			</span>
 		</div>
 		<p class="help-block">Enter song URL or name, for example 
-			<a href="#" @onclick(() => songUrl = "https://youtu.be/hoLu7c2XZYU")>https://youtu.be/hoLu7c2XZYU</a>
+			<a href="" @onclick(() => songUrl = "https://youtu.be/hoLu7c2XZYU")>https://youtu.be/hoLu7c2XZYU</a>
 			or 
-			<a href="#" @onclick(() => songUrl = "Nebula")>Nebula</a>
+			<a href="" @onclick(() => songUrl = "Nebula")>Nebula</a>
 		</p>
 	</form>
 </div>
@@ -30,7 +29,7 @@
 	<ul class="nav nav-tabs">
 		@foreach (var lyrics in song.lyrics) {
 			<li class="@(lyrics == activeLyrics ? "nav-item active" :"nav-item")">
-				<a class="nav-link" href="#" @onclick(() => activeLyrics = lyrics)>
+				<a class="nav-link" href="" @onclick(() => activeLyrics = lyrics)>
 					@GetLyricsTitle(lyrics)
 				</a>
 			</li>
