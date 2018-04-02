@@ -7,10 +7,7 @@
 <div class="row">
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
-			<input type="text" class="form-control" placeholder="Song" @bind(songUrl) />
-			<span class="input-group-btn">
-				<button class="btn btn-default" @onclick(async () => await GetSongAsync(null))>Get</button>
-			</span>
+			<input type="text" class="form-control" placeholder="Song" @onchange(async val => await GetSongAsync(val as string)) />
 		</div>
 		<p class="help-block">Enter song URL or name, for example 
 			<a href="#" @onclick(() => songUrl = "https://vocadb.net/S/121")>https://vocadb.net/S/121</a>
@@ -43,13 +40,6 @@
 	}
 }
 
-<script>
-    Blazor.registerFunction('log', (data) => {
-		console.log(data);
-        return true;
-    });
-</script>
-
 @functions {
 
 	VocaDbContracts.SongForApiContract song;
@@ -57,7 +47,7 @@
 	string songUrl = null;
 
 	private void Log(object val) {
-		RegisteredFunction.Invoke<bool>("log", song);
+		Console.WriteLine(val);
 	}
 
 	string GetLyricsTitle(VocaDbContracts.LyricsForSongContract lyrics) {
@@ -80,15 +70,17 @@
 
 	}
 
-	async Task GetSongAsync(object action)
+	async Task GetSongAsync(string input)
 	{
 
-		if (string.IsNullOrEmpty(songUrl)) {
+		Log(input);
+
+		if (string.IsNullOrEmpty(input)) {
 			song = null;
 			return;
 		}
 
-		var url = "https://vocadb.net/api/songs?maxResults=1&nameMatchMode=Auto&preferAccurateMatches=true&fields=Lyrics&query=" + songUrl;
+		var url = "https://vocadb.net/api/songs?maxResults=1&nameMatchMode=Auto&preferAccurateMatches=true&fields=Lyrics&sort=RatingScore&lang=English&query=" + input;
 		var result = await Http.GetJsonAsync<VocaDbContracts.PartialFindResult<VocaDbContracts.SongForApiContract>>(url);
 		this.song = result.items.FirstOrDefault();
 		if (song != null && song.lyrics.Any()) {
