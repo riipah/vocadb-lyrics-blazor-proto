@@ -1,3 +1,3 @@
 # VocaDB lyrics display Blazor proto
 
-[Demo here](http://lyrics-proto.vocadb.net/).
+[Demo here](https://lyrics-proto.vocadb.net/).
