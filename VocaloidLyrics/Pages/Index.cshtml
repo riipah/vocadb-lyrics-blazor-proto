@@ -72,8 +72,7 @@
 
 	}
 
-	async Task GetSongAsync(string input)
-	{
+	async Task GetSongAsync(string input) {
 
 		Log(input);
 
@@ -90,7 +89,10 @@
 		} else {
 			this.activeLyrics = null;
 		}
+
+		// Needed for async callbacks apparently
 		this.StateHasChanged();
+
 	}
 
 }
