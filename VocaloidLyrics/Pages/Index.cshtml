@@ -29,7 +29,8 @@
 	}
 	<ul class="nav nav-tabs">
 		@foreach (var lyrics in song.lyrics) {
-			<li class="@(lyrics == activeLyrics ? "nav-item active" :"nav-item")">
+			<!-- Conditional classes need double parenthesis, https://github.com/aspnet/Blazor/issues/373#issuecomment-376344640 -->
+			<li class="nav-item @((lyrics == activeLyrics ? "active" :""))">
 				<a class="nav-link" href="" @onclick(() => activeLyrics = lyrics)>
 					@GetLyricsTitle(lyrics)
 				</a>
