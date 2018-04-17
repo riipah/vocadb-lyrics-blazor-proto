@@ -7,15 +7,15 @@
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
 			<!-- Note: currently bind and onchange are not supported on the same element: https://github.com/aspnet/Blazor/issues/433#issue-309782114 -->
-			<input type="text" class="form-control" placeholder="Song" @bind(songUrl) />
+			<input type="text" class="form-control" placeholder="Song" bind="@songUrl" />
 			<span class="input-group-btn">
-				<button class="btn btn-default" @onclick(async () => await GetSongAsync(songUrl))>Get</button>
+				<button class="btn btn-default" onclick="@(async () => await GetSongAsync(songUrl))">Get</button>
 			</span>
 		</div>
 		<p class="help-block">Enter song URL or name, for example 
-			<a href="" @onclick(() => songUrl = "https://youtu.be/hoLu7c2XZYU")>https://youtu.be/hoLu7c2XZYU</a>
+			<a href="" onclick="@(() => songUrl = "https://youtu.be/hoLu7c2XZYU")">https://youtu.be/hoLu7c2XZYU</a>
 			or 
-			<a href="" @onclick(() => songUrl = "Nebula")>Nebula</a>
+			<a href="" onclick="@(() => songUrl = "Nebula")">Nebula</a>
 		</p>
 	</form>
 </div>
@@ -31,7 +31,7 @@
 		@foreach (var lyrics in song.lyrics) {
 			<!-- Conditional classes need double parenthesis, https://github.com/aspnet/Blazor/issues/373#issuecomment-376344640 -->
 			<li class="nav-item @((lyrics == activeLyrics ? "active" :""))">
-				<a class="nav-link" href="" @onclick(() => activeLyrics = lyrics)>
+				<a class="nav-link" href="" onclick="@(() => activeLyrics = lyrics)">
 					@GetLyricsTitle(lyrics)
 				</a>
 			</li>
