@@ -6,7 +6,7 @@
 <div class="row">
 	<form class="form-horizontal col-sm-6">
 		<div class="input-group">
-			<!-- Note 0.2.0: currently bind and onchange are not supported on the same element: https://github.com/aspnet/Blazor/issues/433#issue-309782114 -->
+			<!-- Note 0.4.0: currently bind and onchange are not supported on the same element: https://github.com/aspnet/Blazor/issues/433#issue-309782114, https://github.com/aspnet/Blazor/issues/610 -->
 			<!-- Note 0.4.0: button inside form will always submit form: https://github.com/aspnet/Blazor/issues/988 -->
 			<input type="text" class="form-control" placeholder="Song" bind="@songUrl" />
 			<span class="input-group-btn">
