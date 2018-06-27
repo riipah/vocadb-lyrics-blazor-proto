@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VocaDbContracts {
+﻿namespace VocaDbContracts {
 	public class LyricsForSongContract {
-		public string cultureCode { get; set; }
-		public string source { get; set; }
-		public string translationType { get; set; }
-		public string value { get; set; }
+		public string CultureCode { get; set; }
+		public string Source { get; set; }
+		public string TranslationType { get; set; }
+		public string Value { get; set; }
 	}
 }

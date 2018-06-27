@@ -4,9 +4,9 @@ using System.Text;
 
 namespace VocaDbContracts {
 	public class SongForApiContract {
-		public string artistString { get; set; }
-		public int id { get; set; }
-		public string name { get; set; }
-		public LyricsForSongContract[] lyrics { get; set; }
+		public string ArtistString { get; set; }
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public LyricsForSongContract[] Lyrics { get; set; }
 	}
 }

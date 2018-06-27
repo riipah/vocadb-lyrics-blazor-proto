@@ -22,14 +22,14 @@
 </div>
 
 @if (song != null) {
-	<h2>Lyrics for song <a href="https://vocadb.net/S/@song.id">@song.name</a> by @song.artistString</h2>
-	@if (!song.lyrics.Any()) {
+	<h2>Lyrics for song <a href="https://vocadb.net/S/@song.Id">@song.Name</a> by @song.ArtistString</h2>
+	@if (!song.Lyrics.Any()) {
 		<div class="alert alert-warning">
 			No lyrics! Try another song.
 		</div>
 	}
 	<ul class="nav nav-tabs">
-		@foreach (var lyrics in song.lyrics) {
+		@foreach (var lyrics in song.Lyrics) {
 			<!-- Conditional classes need double parenthesis, https://github.com/aspnet/Blazor/issues/373#issuecomment-376344640 -->
 			<li class="nav-item @((lyrics == activeLyrics ? "active" :""))">
 				<a class="nav-link" href="" onclick="@(() => activeLyrics = lyrics)">
@@ -40,7 +40,7 @@
 	</ul>
 	@if (activeLyrics != null) {
 		<div style="white-space: pre-line;">
-			@activeLyrics.value
+			@activeLyrics.Value
 		</div>
 	}
 }
@@ -56,11 +56,11 @@
 	}
 
 	string GetLyricsTitle(VocaDbContracts.LyricsForSongContract lyrics) {
-		if (!string.IsNullOrEmpty(lyrics.cultureCode)) {
-			return new System.Globalization.CultureInfo(lyrics.cultureCode).EnglishName;
+		if (!string.IsNullOrEmpty(lyrics.CultureCode)) {
+			return new System.Globalization.CultureInfo(lyrics.CultureCode).EnglishName;
 		}
 
-		var translationType = (VocaDbContracts.TranslationType)Enum.Parse(typeof(VocaDbContracts.TranslationType), lyrics.translationType);
+		var translationType = (VocaDbContracts.TranslationType)Enum.Parse(typeof(VocaDbContracts.TranslationType), lyrics.TranslationType);
 
 		switch (translationType) {
 			case VocaDbContracts.TranslationType.Romanized:
@@ -86,9 +86,9 @@
 
 		var url = "https://vocadb.net/api/songs?maxResults=1&nameMatchMode=Auto&preferAccurateMatches=true&fields=Lyrics&sort=RatingScore&lang=English&query=" + input;
 		var result = await Http.GetJsonAsync<VocaDbContracts.PartialFindResult<VocaDbContracts.SongForApiContract>>(url);
-		this.song = result.items.FirstOrDefault();
-		if (song != null && song.lyrics.Any()) {
-			this.activeLyrics = song.lyrics.FirstOrDefault();
+		this.song = result.Items.FirstOrDefault();
+		if (song != null && song.Lyrics.Any()) {
+			this.activeLyrics = song.Lyrics.FirstOrDefault();
 		} else {
 			this.activeLyrics = null;
 		}
