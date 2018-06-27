@@ -30,7 +30,6 @@
 	}
 	<ul class="nav nav-tabs">
 		@foreach (var lyrics in song.Lyrics) {
-			<!-- Conditional classes need double parenthesis, https://github.com/aspnet/Blazor/issues/373#issuecomment-376344640 -->
 			<li class="nav-item @((lyrics == activeLyrics ? "active" :""))">
 				<a class="nav-link" href="" onclick="@(() => activeLyrics = lyrics)">
 					@GetLyricsTitle(lyrics)
@@ -92,9 +91,6 @@
 		} else {
 			this.activeLyrics = null;
 		}
-
-		// Needed for async callbacks apparently
-		this.StateHasChanged();
 
 	}
 
